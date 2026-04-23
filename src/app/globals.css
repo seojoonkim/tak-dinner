@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300;0,500&family=Noto+Serif+KR:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300;0,500;0,700&family=Noto+Serif+KR:wght@300;400;600&display=swap');
 
 :root {
   --cream: #F5F0E8;
@@ -34,12 +34,36 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--cream-dark);
+  background: var(--charcoal);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--warm);
-  border-radius: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+/* Fire glow utility */
+.fire-glow {
+  text-shadow: 0 0 30px rgba(184, 134, 18, 0.35);
+  filter: drop-shadow(0 0 12px rgba(184, 134, 18, 0.25));
+}
+
+/* Gold text */
+.gold-text {
+  color: var(--gold);
+}
+
+/* Fade-in animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Ember flicker */
+@keyframes emberFlicker {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.08); }
 }
