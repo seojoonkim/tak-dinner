@@ -42,7 +42,7 @@ export default function EnvelopeIntro({ onOpen }: Props) {
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        background: "#1C1917",
+        background: "#0D0D0D",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -51,33 +51,83 @@ export default function EnvelopeIntro({ onOpen }: Props) {
         overflow: "hidden",
       }}
     >
-      {/* Background particles — subtle gold flicker */}
-      {[...Array(18)].map((_, i) => (
+      {/* Fire particles from bottom */}
+      {[...Array(24)].map((_, i) => (
         <motion.div
           key={i}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 0 }}
           animate={{
-            opacity: [0, 0.25, 0],
-            y: [20 + i * 10, -60 - i * 8],
-            x: Math.sin(i) * 60,
+            opacity: [0, 0.8, 0],
+            y: [-20 - i * 12, -180 - i * 15],
+            x: Math.sin(i * 0.8) * 80,
           }}
           transition={{
-            duration: 3 + Math.random() * 2,
+            duration: 2.5 + Math.random() * 2,
             repeat: Infinity,
-            delay: Math.random() * 4,
+            delay: Math.random() * 3,
             ease: "easeOut",
           }}
           style={{
             position: "absolute",
-            width: "2px",
-            height: "2px",
+            width: i % 3 === 0 ? "3px" : "2px",
+            height: i % 3 === 0 ? "3px" : "2px",
             borderRadius: "50%",
-            background: "#B8960C",
-            left: `${10 + (i / 18) * 80}%`,
-            bottom: "10%",
+            background: i % 2 === 0 ? "#FF4500" : "#FFD700",
+            left: `${8 + (i / 24) * 84}%`,
+            bottom: "5%",
+            filter: "blur(0.5px)",
           }}
         />
       ))}
+
+      {/* Bottom fire glow */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "80%",
+          height: "35%",
+          background: "radial-gradient(ellipse at center bottom, rgba(255,69,0,0.18) 0%, rgba(255,140,0,0.08) 40%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Warning badge */}
+      <AnimatePresence>
+        {phase === "sealed" && (
+          <motion.div
+            key="warning"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            style={{
+              position: "absolute",
+              top: "3rem",
+              left: "50%",
+              transform: "translateX(-50%)",
+              border: "1px solid rgba(255,69,0,0.4)",
+              borderRadius: "2px",
+              padding: "0.5rem 1.5rem",
+              textAlign: "center",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "0.65rem",
+                letterSpacing: "0.3em",
+                color: "#FF4500",
+                textTransform: "uppercase",
+              }}
+            >
+              ⚠️ 경고: 이 봉투를 열면 다시는 평범한 닭을 먹을 수 없게 됩니다.
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Envelope container */}
       <motion.div
@@ -96,9 +146,9 @@ export default function EnvelopeIntro({ onOpen }: Props) {
             position: "relative",
             width: "100%",
             paddingBottom: "65%",
-            background: "linear-gradient(145deg, #F5F0E8, #EDE7D5)",
+            background: "linear-gradient(145deg, #FFF8F0, #F0E8D8)",
             borderRadius: "4px",
-            boxShadow: "0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(184,150,12,0.15)",
+            boxShadow: "0 40px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,140,0,0.2), 0 0 60px rgba(255,69,0,0.08)",
             overflow: "hidden",
           }}
         >
@@ -108,8 +158,8 @@ export default function EnvelopeIntro({ onOpen }: Props) {
               position: "absolute",
               inset: 0,
               background:
-                "linear-gradient(135deg, transparent 49.5%, rgba(184,150,12,0.08) 49.5%, rgba(184,150,12,0.08) 50.5%, transparent 50.5%), " +
-                "linear-gradient(225deg, transparent 49.5%, rgba(184,150,12,0.08) 49.5%, rgba(184,150,12,0.08) 50.5%, transparent 50.5%)",
+                "linear-gradient(135deg, transparent 49.5%, rgba(255,140,0,0.06) 49.5%, rgba(255,140,0,0.06) 50.5%, transparent 50.5%), " +
+                "linear-gradient(225deg, transparent 49.5%, rgba(255,140,0,0.06) 49.5%, rgba(255,140,0,0.06) 50.5%, transparent 50.5%)",
             }}
           />
 
@@ -128,11 +178,11 @@ export default function EnvelopeIntro({ onOpen }: Props) {
                   width: "70px",
                   height: "70px",
                   borderRadius: "50%",
-                  background: "radial-gradient(circle at 35% 35%, #D4AA20, #8B6914)",
+                  background: "radial-gradient(circle at 35% 35%, #FF8C00, #CC3300)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+                  boxShadow: "0 4px 20px rgba(255,69,0,0.5), 0 0 40px rgba(255,140,0,0.3)",
                   zIndex: 10,
                 }}
               >
@@ -140,7 +190,7 @@ export default function EnvelopeIntro({ onOpen }: Props) {
                   style={{
                     fontFamily: "'Playfair Display', serif",
                     fontSize: "1.6rem",
-                    color: "#1C1917",
+                    color: "#FFF8F0",
                     fontWeight: 700,
                     letterSpacing: "-0.05em",
                   }}
@@ -164,11 +214,11 @@ export default function EnvelopeIntro({ onOpen }: Props) {
                   top: "15%",
                   left: "8%",
                   right: "8%",
-                  background: "linear-gradient(160deg, #FDFAF4, #F5F0E8)",
+                  background: "linear-gradient(160deg, #FDFAF4, #FFF8F0)",
                   padding: "2rem",
                   borderRadius: "2px",
                   textAlign: "center",
-                  boxShadow: "0 8px 40px rgba(0,0,0,0.15)",
+                  boxShadow: "0 8px 40px rgba(0,0,0,0.2)",
                   zIndex: 5,
                 }}
               >
@@ -177,7 +227,7 @@ export default function EnvelopeIntro({ onOpen }: Props) {
                     fontFamily: "'Cormorant Garamond', serif",
                     fontSize: "0.65rem",
                     letterSpacing: "0.4em",
-                    color: "#B8960C",
+                    color: "#FF4500",
                     textTransform: "uppercase",
                     marginBottom: "1rem",
                   }}
@@ -188,7 +238,7 @@ export default function EnvelopeIntro({ onOpen }: Props) {
                   style={{
                     fontFamily: "'Playfair Display', serif",
                     fontSize: "clamp(2.2rem, 6vw, 3rem)",
-                    color: "#1C1917",
+                    color: "#0D0D0D",
                     letterSpacing: "0.2em",
                     lineHeight: 1,
                     marginBottom: "0.75rem",
@@ -200,7 +250,7 @@ export default function EnvelopeIntro({ onOpen }: Props) {
                   style={{
                     width: "40px",
                     height: "1px",
-                    background: "#B8960C",
+                    background: "linear-gradient(90deg, #FF4500, #FFD700)",
                     margin: "0 auto 0.75rem",
                   }}
                 />
@@ -208,11 +258,11 @@ export default function EnvelopeIntro({ onOpen }: Props) {
                   style={{
                     fontFamily: "'Noto Serif KR', serif",
                     fontSize: "0.75rem",
-                    color: "#8B7355",
+                    color: "#2A2A2A",
                     letterSpacing: "0.2em",
                   }}
                 >
-                  한 마리의 닭, 열 개의 우주
+                  닭이 왕이 되는 밤
                 </p>
               </motion.div>
             )}
@@ -249,11 +299,10 @@ export default function EnvelopeIntro({ onOpen }: Props) {
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "linear-gradient(170deg, #EDE7D5, #D8D0BE)",
+                background: "linear-gradient(170deg, #F0E8D8, #DDD0BE)",
                 clipPath: "polygon(0 0, 100% 0, 50% 100%)",
               }}
             />
-            {/* Flap inner shadow */}
             <div
               style={{
                 position: "absolute",
@@ -280,7 +329,7 @@ export default function EnvelopeIntro({ onOpen }: Props) {
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: "0.75rem",
               letterSpacing: "0.35em",
-              color: "#8B7355",
+              color: "#FF8C00",
               textTransform: "uppercase",
             }}
           >
@@ -302,7 +351,7 @@ export default function EnvelopeIntro({ onOpen }: Props) {
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: "0.75rem",
               letterSpacing: "0.35em",
-              color: "#B8960C",
+              color: "#FF4500",
               textTransform: "uppercase",
             }}
           >

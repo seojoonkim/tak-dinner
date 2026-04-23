@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300;0,500;0,700&family=Noto+Serif+KR:wght@300;400;600&display=swap');
 
 :root {
-  --cream: #F5F0E8;
-  --cream-dark: #EDE7D5;
+  --cream: #FFF8F0;
+  --cream-dark: #F0E8D8;
+  --ink: #0D0D0D;
+  --smoke: #2A2A2A;
+  --fire: #FF4500;
+  --ember: #FF8C00;
+  --gold: #FFD700;
+  --neon-gold: #FFE566;
   --charcoal: #1C1917;
   --charcoal-light: #2C2925;
-  --gold: #B8960C;
-  --gold-light: #D4AA20;
   --warm: #8B7355;
   --warm-light: #A89070;
 }
@@ -22,14 +26,14 @@ html {
 }
 
 body {
-  background: var(--cream);
-  color: var(--charcoal);
+  background: var(--ink);
+  color: var(--ink);
   font-family: 'Noto Serif KR', serif;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--gold);
+  background: var(--fire);
   color: var(--cream);
 }
 
@@ -37,18 +41,28 @@ body {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--charcoal);
+  background: var(--ink);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--gold);
+  background: var(--fire);
   border-radius: 2px;
-  opacity: 0.5;
+}
+
+/* Scroll progress bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--fire), var(--ember), var(--gold));
+  z-index: 99999;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px var(--fire), 0 0 20px var(--ember);
 }
 
 /* Fire glow utility */
 .fire-glow {
-  text-shadow: 0 0 30px rgba(184, 134, 18, 0.35);
-  filter: drop-shadow(0 0 12px rgba(184, 134, 18, 0.25));
+  filter: drop-shadow(0 0 12px rgba(255,69,0,0.6)) drop-shadow(0 0 30px rgba(255,140,0,0.4));
 }
 
 /* Gold text */
@@ -64,6 +78,13 @@ body {
 
 /* Ember flicker */
 @keyframes emberFlicker {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50%       { opacity: 0.6; transform: scale(1.08); }
+  0%, 100% { opacity: 0.4; transform: scale(1) translateY(0); }
+  33%       { opacity: 0.9; transform: scale(1.12) translateY(-4px); }
+  66%       { opacity: 0.6; transform: scale(0.96) translateY(2px); }
+}
+
+/* Fire pulse */
+@keyframes firePulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(255,69,0,0.3); }
+  50%       { box-shadow: 0 0 60px rgba(255,69,0,0.7), 0 0 100px rgba(255,140,0,0.4); }
 }

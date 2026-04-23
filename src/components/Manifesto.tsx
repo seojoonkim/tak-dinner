@@ -11,7 +11,7 @@ export default function Manifesto() {
     <section
       ref={ref}
       style={{
-        background: "#F5F0E8",
+        background: "#FFF8F0",
         padding: "10rem 2rem",
         position: "relative",
         overflow: "hidden",
@@ -48,11 +48,9 @@ export default function Manifesto() {
             marginBottom: "3rem",
           }}
         >
-          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, #B8960C)" }} />
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M9 0 L10.5 7.5 L18 9 L10.5 10.5 L9 18 L7.5 10.5 L0 9 L7.5 7.5 Z" fill="#B8960C" opacity="0.6" />
-          </svg>
-          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, #B8960C)" }} />
+          <div style={{ flex: 1, height: "2px", background: "linear-gradient(to right, transparent, #FF4500)" }} />
+          <span style={{ fontSize: "1.4rem" }}>🔥</span>
+          <div style={{ flex: 1, height: "2px", background: "linear-gradient(to left, transparent, #FF4500)" }} />
         </motion.div>
 
         {/* Main manifesto text */}
@@ -62,8 +60,8 @@ export default function Manifesto() {
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           style={{
             fontFamily: "'Noto Serif KR', serif",
-            fontSize: "clamp(0.85rem, 2vw, 1.05rem)",
-            color: "#2C2925",
+            fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
+            color: "#0D0D0D",
             lineHeight: 2.4,
             letterSpacing: "0.1em",
             fontWeight: 300,
@@ -82,12 +80,13 @@ export default function Manifesto() {
           transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           style={{
             fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(1.1rem, 2.5vw, 1.4rem)",
+            fontSize: "clamp(1.2rem, 2.8vw, 1.6rem)",
             fontStyle: "italic",
-            color: "#8B7355",
+            color: "#FF4500",
             lineHeight: 1.8,
             letterSpacing: "0.06em",
             marginBottom: "3.5rem",
+            textShadow: "0 0 40px rgba(255,69,0,0.15)",
           }}
         >
           닭이 지배하는 밤,<br />당신을 초대합니다.
@@ -105,9 +104,14 @@ export default function Manifesto() {
             gap: "1rem",
           }}
         >
-          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, #B8960C)" }} />
-          <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", color: "#B8960C", opacity: 0.5 }}>T</span>
-          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, #B8960C)" }} />
+          <div style={{ flex: 1, height: "2px", background: "linear-gradient(to right, transparent, #FF4500)" }} />
+          <span style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "1.4rem",
+            color: "#FF4500",
+            fontWeight: 700,
+          }}>T</span>
+          <div style={{ flex: 1, height: "2px", background: "linear-gradient(to left, transparent, #FF4500)" }} />
         </motion.div>
       </div>
     </section>

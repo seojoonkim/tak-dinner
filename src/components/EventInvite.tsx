@@ -11,25 +11,53 @@ export default function EventInvite() {
     <section
       ref={ref}
       style={{
-        background: "#1C1917",
+        background: "radial-gradient(ellipse at center bottom, #3A0E00 0%, #1A0500 40%, #000 100%)",
         padding: "10rem 2rem",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Background gold glow */}
+      {/* Fire glow */}
       <div
         style={{
           position: "absolute",
-          top: "50%",
+          bottom: 0,
           left: "50%",
-          transform: "translate(-50%,-50%)",
-          width: "60%",
-          height: "60%",
-          background: "radial-gradient(ellipse, rgba(184,150,12,0.06) 0%, transparent 70%)",
+          transform: "translateX(-50%)",
+          width: "70%",
+          height: "50%",
+          background: "radial-gradient(ellipse at center bottom, rgba(255,69,0,0.2) 0%, rgba(255,140,0,0.08) 35%, transparent 65%)",
           pointerEvents: "none",
         }}
       />
+
+      {/* Top fire embers */}
+      {[...Array(12)].map((_, i) => (
+        <motion.div
+          key={i}
+          animate={{
+            opacity: [0, 0.6, 0],
+            y: [0, -200 - i * 15],
+            x: Math.sin(i * 1.5) * 60,
+          }}
+          transition={{
+            duration: 2.5 + Math.random() * 2,
+            repeat: Infinity,
+            delay: Math.random() * 4,
+            ease: "easeOut",
+          }}
+          style={{
+            position: "absolute",
+            width: "2px",
+            height: "2px",
+            borderRadius: "50%",
+            background: i % 2 === 0 ? "#FF4500" : "#FFD700",
+            left: `${20 + (i / 12) * 60}%`,
+            bottom: "15%",
+            filter: "blur(0.5px)",
+          }}
+        />
+      ))}
 
       {/* Background watermark rooster */}
       <div
@@ -38,17 +66,16 @@ export default function EventInvite() {
           top: "50%",
           left: "50%",
           transform: "translate(-50%,-50%)",
-          opacity: 0.025,
+          opacity: 0.04,
           pointerEvents: "none",
           userSelect: "none",
         }}
       >
         <svg width="600" height="668" viewBox="0 0 180 200" fill="none">
-          <path d="M30 120 Q10 90 15 60 Q20 50 25 65 Q15 85 35 110" stroke="#F5F0E8" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-          <path d="M50 135 Q55 95 80 80 Q95 72 115 78 Q138 85 145 110 Q150 130 140 148 Q125 165 100 168 Q72 168 58 152 Q50 143 50 135Z" stroke="#F5F0E8" strokeWidth="1.5" fill="#F5F0E8" fillOpacity="0.3" />
-          <circle cx="100" cy="45" r="18" stroke="#F5F0E8" strokeWidth="1.5" fill="#F5F0E8" fillOpacity="0.2" />
-          <path d="M92 30 Q88 20 92 15 Q96 10 98 18 Q99 10 103 8 Q107 10 105 18 Q107 12 111 14 Q114 20 109 27" stroke="#F5F0E8" strokeWidth="2" fill="none" strokeLinecap="round" />
-          <path d="M88 80 Q92 65 96 55 Q100 48 102 55 Q105 65 108 78" stroke="#F5F0E8" strokeWidth="1.5" fill="none" />
+          <path d="M30 120 Q10 90 15 60 Q20 50 25 65 Q15 85 35 110" stroke="#FFF8F0" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+          <path d="M50 135 Q55 95 80 80 Q95 72 115 78 Q138 85 145 110 Q150 130 140 148 Q125 165 100 168 Q72 168 58 152 Q50 143 50 135Z" stroke="#FFF8F0" strokeWidth="1.5" fill="#FFF8F0" fillOpacity="0.3" />
+          <circle cx="100" cy="45" r="18" stroke="#FFF8F0" strokeWidth="1.5" fill="#FFF8F0" fillOpacity="0.2" />
+          <path d="M92 30 Q88 20 92 15 Q96 10 98 18 Q99 10 103 8 Q107 10 105 18 Q107 12 111 14 Q114 20 109 27" stroke="#FFF8F0" strokeWidth="2" fill="none" strokeLinecap="round" />
         </svg>
       </div>
 
@@ -74,20 +101,37 @@ export default function EventInvite() {
             justifyContent: "center",
           }}
         >
-          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, #B8960C)" }} />
+          <div style={{ flex: 1, height: "2px", background: "linear-gradient(to right, transparent, #FF4500)" }} />
           <span
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: "0.65rem",
               letterSpacing: "0.4em",
-              color: "#B8960C",
+              color: "#FF4500",
               textTransform: "uppercase",
             }}
           >
             Private Dinner
           </span>
-          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, #B8960C)" }} />
+          <div style={{ flex: 1, height: "2px", background: "linear-gradient(to left, transparent, #FF4500)" }} />
         </motion.div>
+
+        {/* Witness text */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: "clamp(0.85rem, 2vw, 1rem)",
+            fontStyle: "italic",
+            color: "rgba(255,248,240,0.5)",
+            letterSpacing: "0.15em",
+            marginBottom: "2rem",
+          }}
+        >
+          오늘 밤 당신은 목격자가 됩니다
+        </motion.p>
 
         {/* Invitation card */}
         <motion.div
@@ -95,15 +139,16 @@ export default function EventInvite() {
           animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            border: "1px solid rgba(184,150,12,0.25)",
-            borderRadius: "4px",
+            border: "1px solid rgba(255,69,0,0.3)",
+            borderRadius: "6px",
             padding: "4rem 3rem",
             position: "relative",
-            background: "rgba(245,240,232,0.03)",
+            background: "rgba(255,248,240,0.03)",
+            boxShadow: "inset 0 0 60px rgba(255,69,0,0.04)",
           }}
         >
           {/* Corner ornaments */}
-          {["top-left", "top-right", "bottom-left", "bottom-right"].map((corner) => (
+          {(["top-left", "top-right", "bottom-left", "bottom-right"] as const).map((corner) => (
             <div
               key={corner}
               style={{
@@ -112,10 +157,10 @@ export default function EventInvite() {
                 [corner.includes("left") ? "left" : "right"]: "12px",
                 width: "16px",
                 height: "16px",
-                borderTop: corner.includes("top") ? "1px solid #B8960C" : "none",
-                borderBottom: corner.includes("bottom") ? "1px solid #B8960C" : "none",
-                borderLeft: corner.includes("left") ? "1px solid #B8960C" : "none",
-                borderRight: corner.includes("right") ? "1px solid #B8960C" : "none",
+                borderTop: corner.includes("top") ? "1px solid #FF4500" : "none",
+                borderBottom: corner.includes("bottom") ? "1px solid #FF4500" : "none",
+                borderLeft: corner.includes("left") ? "1px solid #FF4500" : "none",
+                borderRight: corner.includes("right") ? "1px solid #FF4500" : "none",
                 opacity: 0.5,
               }}
             />
@@ -126,7 +171,7 @@ export default function EventInvite() {
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: "0.7rem",
               letterSpacing: "0.4em",
-              color: "#B8960C",
+              color: "#FF4500",
               textTransform: "uppercase",
               marginBottom: "2.5rem",
             }}
@@ -138,41 +183,42 @@ export default function EventInvite() {
             style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(3.5rem, 9vw, 6rem)",
-              fontWeight: 400,
-              color: "#F5F0E8",
+              fontWeight: 700,
+              color: "#FFF8F0",
               letterSpacing: "0.2em",
               lineHeight: 1,
               marginBottom: "2rem",
+              textShadow: "0 0 60px rgba(255,140,0,0.3)",
             }}
           >
-            tak
+            TAK
           </h2>
 
           <div
             style={{
-              width: "50px",
-              height: "1px",
-              background: "#B8960C",
+              width: "80px",
+              height: "2px",
+              background: "linear-gradient(90deg, transparent, #FF4500, #FFD700, #FF4500, transparent)",
               margin: "0 auto 2.5rem",
-              opacity: 0.6,
+              boxShadow: "0 0 12px rgba(255,69,0,0.5)",
             }}
           />
 
           <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem", alignItems: "center" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-              <div style={{ width: "24px", height: "1px", background: "#8B7355", opacity: 0.5 }} />
+              <div style={{ width: "24px", height: "1px", background: "rgba(255,69,0,0.4)" }} />
               <p
                 style={{
                   fontFamily: "'Noto Serif KR', serif",
                   fontSize: "clamp(1rem, 2.5vw, 1.2rem)",
-                  color: "#F5F0E8",
+                  color: "#FFF8F0",
                   letterSpacing: "0.15em",
                   fontWeight: 300,
                 }}
               >
                 2026년 4월 23일 목요일
               </p>
-              <div style={{ width: "24px", height: "1px", background: "#8B7355", opacity: 0.5 }} />
+              <div style={{ width: "24px", height: "1px", background: "rgba(255,69,0,0.4)" }} />
             </div>
 
             <p
@@ -180,7 +226,7 @@ export default function EventInvite() {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(0.85rem, 2vw, 1rem)",
                 fontStyle: "italic",
-                color: "#A89070",
+                color: "rgba(255,140,0,0.7)",
                 letterSpacing: "0.1em",
               }}
             >
@@ -191,7 +237,7 @@ export default function EventInvite() {
               style={{
                 fontFamily: "'Noto Serif KR', serif",
                 fontSize: "0.85rem",
-                color: "#8B7355",
+                color: "rgba(255,248,240,0.5)",
                 letterSpacing: "0.15em",
                 fontWeight: 300,
                 marginTop: "0.5rem",
@@ -205,21 +251,33 @@ export default function EventInvite() {
             style={{
               marginTop: "3rem",
               paddingTop: "2.5rem",
-              borderTop: "1px solid rgba(184,150,12,0.15)",
+              borderTop: "1px solid rgba(255,69,0,0.15)",
             }}
           >
             <p
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "0.9rem",
+                fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
                 fontStyle: "italic",
-                color: "#A89070",
+                color: "rgba(255,248,240,0.65)",
                 letterSpacing: "0.08em",
-                lineHeight: 1.8,
+                lineHeight: 2,
+                marginBottom: "1rem",
               }}
             >
               한 마리의 닭이 열 개의 우주가 되는 밤.<br />
-              이 밤을 기억하라.
+              이 밤을 누군가에게 설명하려 하지 마세요.
+            </p>
+            <p
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "clamp(0.85rem, 1.8vw, 1rem)",
+                fontStyle: "italic",
+                color: "rgba(255,69,0,0.6)",
+                letterSpacing: "0.08em",
+              }}
+            >
+              당신도 믿지 않을 테니까.
             </p>
           </div>
         </motion.div>
